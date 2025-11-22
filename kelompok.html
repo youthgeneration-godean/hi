@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Detail Kelompok</title>
+</head>
+<body>
+
+  <h1 id="title"></h1>
+  <div id="content">Loading...</div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const kelompok = params.get("nama");
+
+    document.getElementById("title").innerText = "Kelompok " + kelompok;
+
+    async function loadData() {
+      const token = localStorage.getItem("token") || "";
+
+      const url = `https://script.google.com/macros/s/AKfycby8j75iWmpe4BjBXuU1axq7H0Ba_CPMjjNDgpKfGRiScd3XjMW5HEedC_g08fNiqb7d/exec?action=group&kelompok=${kelompok}&token=${token}`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (data.status === "error") {
+        document.getElementById("content").innerHTML =
+          "<p>Akses terbatas. Minta token ke admin.</p>";
+        return;
+      }
+
+      let html = "<ul>";
+      data.data.forEach(o => {
+        html += `<li>${o.nama} — ${o.jenjang} — ${o.desa}</li>`;
+      });
+      html += "</ul>";
+
+      document.getElementById("content").innerHTML = html;
+    }
+
+    loadData();
+  </script>
+
+</body>
+</html>
