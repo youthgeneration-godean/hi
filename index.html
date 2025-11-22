@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Generus Godean</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Hi👋</h1>
+    <p>Selamat datang di website Generusb Godean</p>
+  </header>
+
+  <section id="stats">
+    <h2>Total Generus</h2>
+    <p id="total">Loading...</p>
+  </section>
+
+  <section id="instagram">
+    <h2>Instagram Feed</h2>
+    <iframe src="https://www.instagram.com/@generusgodean/embed" width="100%" height="600"></iframe>
+  </section>
+
+  <section id="tiktok">
+    <h2>TikTok Feed</h2>
+    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@generusgodean" data-unique-id="USERNAME"> </blockquote>
+    <script async src="https://www.tiktok.com/embed.js"></script>
+  </section>
+
+  <script>
+    async function loadTotal() {
+      const url = "https://script.google.com/macros/s/AKfycby8j75iWmpe4BjBXuU1axq7H0Ba_CPMjjNDgpKfGRiScd3XjMW5HEedC_g08fNiqb7d/exec?action=getMaster";
+
+      const res = await fetch(url);
+      const data = await res.json();
+
+      document.getElementById("total").innerHTML = data.data.length;
+    }
+
+    loadTotal();
+  </script>
+
+</body>
+</html>
