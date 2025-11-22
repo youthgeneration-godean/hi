@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Database Generus Godean</title>
+</head>
+<body>
+  <h1>Database Generus Godean</h1>
+  <p>Ringkasan data per kelompok</p>
+
+  <div id="list">Loading...</div>
+
+  <script>
+    async function loadData() {
+      const url = "https://script.google.com/macros/s/AKfycby8j75iWmpe4BjBXuU1axq7H0Ba_CPMjjNDgpKfGRiScd3XjMW5HEedC_g08fNiqb7d/exec?action=agg";
+
+      const res = await fetch(url);
+      const data = await res.json();
+
+      let html = "";
+      data.data.forEach(item => {
+        html += `
+          <div>
+            <a href="kelompok.html?nama=${item.kelompok}">
+              ${item.kelompok} — ${item.total} orang
+            </a>
+          </div>
+        `;
+      });
+
+      document.getElementById("list").innerHTML = html;
+    }
+
+    loadData();
+  </script>
+
+</body>
+</html>
